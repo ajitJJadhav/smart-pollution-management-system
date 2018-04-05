@@ -11,6 +11,8 @@ def grab(request):
     pollution = request.GET['pol']
     latitude = request.GET['lat']
     longitude = request.GET['lon']
+    temperature = request.GET['t']
+    humidity = request.GET['h']
 
     Data.objects.create(pollution=pollution,latitude=latitude,longitude=longitude)
 
@@ -32,4 +34,6 @@ def showMap(request):
             return render(request,"pms/Dashboard_mist/pages/maps.html", {'f':form, 'dt':datevalue, 'pldata':all_data} )
     else:
         form = DateForm()
-        return render(request, "pms/Dashboard_mist/pages/maps.html",{'f':form})
+        datevalue = datetime.date.today()
+        all_data = Data.objects.filter(created_on__date = datevalue)
+        return render(request,"pms/Dashboard_mist/pages/maps.html", {'f':form, 'dt':datevalue, 'pldata':all_data} )
