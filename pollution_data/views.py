@@ -29,10 +29,7 @@ def showMap(request):
         if form.is_valid():
             datevalue = form.cleaned_data['created_on']
             all_data = Data.objects.filter(created_on__date = datevalue)
-            print(all_data)
-            return render(request,"pms/Dashboard_mist/pages/maps.html", {'f':form, 'dt':datevalue, 'pd':all_data} )
-        else:
-            print("The format of the date is bricked!!!")
+            return render(request,"pms/Dashboard_mist/pages/maps.html", {'f':form, 'dt':datevalue, 'pldata':all_data} )
     else:
         form = DateForm()
         return render(request, "pms/Dashboard_mist/pages/maps.html",{'f':form})
