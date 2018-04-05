@@ -82,10 +82,33 @@
             </div>
         </div>
         <h1 style="text-align:center;font-family: 'Saira', sans-serif;padding-left: 100px;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Click on the markers to get details</h1>
+        <div align='center'>
+<form action="" method="post" style="z-index:999 ">
+        {% csrf_token %}
+        <table>
+            {{ f.as_table }}
+            <tr>
+                <td></td>
+                <td><input type="submit"></td>
+            </tr>
+        </table>
+        <!-- <label>Date:</label>
+        <input id="created_on" type="text" required/>
+        <input type="submit"> -->
+    </form>
+    <!-- <h3>
+    {%for i in pd%}
+        {{ i }}
+    {%endfor%}
+    </h3> -->
+</div>
         <div id="map"></div>
-        <div id="map"><div id="legend" style="text-align: left;"><h3>Legend</h3></div></div>
+        <div id="legend" style="text-align: left;"><h3>Legend</h3></div>
     </div>
 </body>
+
+
+
 <!--   Core JS Files   -->
 <script src="{% static 'assets/js/jquery-3.2.1.min.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/js/bootstrap.min.js' %}" type="text/javascript"></script>
@@ -113,7 +136,7 @@
         center: myLatlng,
         scrollwheel: false,
         mapTypeId: 'roadmap', //we disable de scroll over the map, it is a really annoing when you scroll through page
-        styles: [{
+        /*styles: [{
             "featureType": "water",
             "stylers": [{
                 "saturation": 43
@@ -197,17 +220,56 @@
             "stylers": [{
                 "visibility": "simplified"
             }]
-        }]
+        }]*/
 
     }
     var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    
+    function changeGradient() {
+        var gradient = [
+          'rgba(0, 255, 255, 0)',
+          'rgba(0, 255, 255, 1)',
+          'rgba(0, 191, 255, 1)',
+          'rgba(0, 127, 255, 1)',
+          'rgba(0, 63, 255, 1)',
+          'rgba(0, 0, 255, 1)',
+          'rgba(0, 0, 223, 1)',
+          'rgba(0, 0, 191, 1)',
+          'rgba(0, 0, 159, 1)',
+          'rgba(0, 0, 127, 1)',
+          'rgba(63, 0, 91, 1)',
+          'rgba(127, 0, 63, 1)',
+          'rgba(191, 0, 31, 1)',
+          'rgba(255, 0, 0, 1)'
+        ]
+        heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
+      }
 
+
+    function changeRadius() {
+        heatmap.set('radius', heatmap.get('radius') ? null : 20);
+      }
+
+    function changeOpacity() {
+        heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
+      }
+
+
+    var heatMapData = [];
+    {% for pd in pldata%}
+        heatMapData.push({location: new google.maps.LatLng({{pd.latitude}},{{pd.longitude}}), weight:{{pd.pollution}}})
+    {%endfor%}
+    var heatmap = new google.maps.visualization.HeatmapLayer({
+          data: heatMapData,
+          map: map
+        });
+    
     var marker = new google.maps.Marker({
         position: myLatlng,
         title: "Hello World!"
     });
 
-
+    heatmap.setMap(map);
     // To add the marker to the map, call setMap();
     marker.setMap(map);
     var legend = document.getElementById('legend');
@@ -236,22 +298,9 @@
 
 <div style="overflow:hidden;height:500px;width:84%;margin:auto;">
 <script async defer
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhS7p1L3Hu9OxCjF_cbZnQatOywzhBDp0&callback=initMap">
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhS7p1L3Hu9OxCjF_cbZnQatOywzhBDp0&libraries=visualization&callback=initMap">
 </script>
-</div>
+ </div>
 
-<div align='center'>
-
-  <form action="" method="post">
-        {% csrf_token %}
-        <table>
-            {{ f.as_table }}
-            <tr>
-                <td></td>
-                <td><input type="submit"></td>
-            </tr>
-        </table>
-    </form>
-</div>
 
 </html>

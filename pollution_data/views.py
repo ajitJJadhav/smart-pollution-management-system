@@ -21,5 +21,15 @@ def showMap(request):
     # if request.GET['date']:
     #     date = request.GET['date']
 
-    form = DateForm()
-    return render(request,"pms/Dashboard_mist/pages/maps.html",{'f':form})
+    # form = DateForm()
+    # return render(request,"pms/Dashboard_mist/pages/maps.html",{'f':form})
+    if request.method == 'POST':
+        form = DateForm(request.POST)
+
+        if form.is_valid():
+            datevalue = form.cleaned_data['created_on']
+            all_data = Data.objects.filter(created_on__date = datevalue)
+            return render(request,"pms/Dashboard_mist/pages/maps.html", {'f':form, 'dt':datevalue, 'pldata':all_data} )
+    else:
+        form = DateForm()
+        return render(request, "pms/Dashboard_mist/pages/maps.html",{'f':form})
