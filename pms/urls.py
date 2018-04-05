@@ -18,9 +18,9 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-    url(r'^$',views.dashboard),
+    url(r'^$',views.dashboard, name="dashboard"),
     url(r'^pollution-data/', include('pollution_data.urls')),
-    url(r'^admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls,name="admin_portal"),
     # url(r'^logout/$', 'django.contrib.auth.views.logout',
     #                       {'next_page': '/'})
 ]

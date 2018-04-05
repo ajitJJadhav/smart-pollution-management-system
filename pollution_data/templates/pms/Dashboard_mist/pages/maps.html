@@ -52,27 +52,27 @@
         Tip 2: you can also add an image using data-image tag
     -->
             <div class="logo">
-                <a href="http://127.0.0.1:8000/" class="simple-text">
+                <a href="/" class="simple-text">
                     Project Mist
                 </a>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li>
-                        <a href="http://127.0.0.1:8000/">
+                        <a href="{% url 'dashboard' %}">
                             <i class="material-icons">dashboard</i>
                             <p>Dashboard</p>
                         </a>
                     </li>
                     <li>
-                        <a href="http://127.0.0.1:8000/admin">
+                        <a href="{% url 'admin:index' %}">
                             <i class="material-icons">person</i>
                             <p>Admin Login</p>
                         </a>
                     </li>
 
                     <li class="active">
-                        <a href="http://127.0.0.1:8000/pollution-data/showdata">
+                        <a href="{% url 'map' %}">
                             <i class="material-icons">location_on</i>
                             <p>Pollution Distribution</p>
                         </a>
@@ -224,7 +224,7 @@
 
     }
     var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-    
+
     function changeGradient() {
         var gradient = [
           'rgba(0, 255, 255, 0)',
@@ -263,7 +263,7 @@
           data: heatMapData,
           map: map
         });
-    
+
     var marker = new google.maps.Marker({
         position: myLatlng,
         title: "Hello World!"

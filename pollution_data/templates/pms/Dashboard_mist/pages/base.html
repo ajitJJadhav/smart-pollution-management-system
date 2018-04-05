@@ -27,7 +27,7 @@
         Tip 2: you can also add an image using data-image tag
     -->
             <div class="logo">
-                <a href="/" class="simple-text">
+                <a href="{% url 'dashboard' %}" class="simple-text">
                     Project Mist
                 </a>
             </div>
@@ -40,14 +40,14 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/admin">
+                        <a href="{% url 'admin:index' %}">
                             <i class="material-icons">person</i>
                             <p>Admin Login</p>
                         </a>
                     </li>
 
                     <li>
-                        <a href="/pollution-data/showdata">
+                        <a href="{% url 'map' %}">
                             <i class="material-icons">location_on</i>
                             <p>Pollution Distribution</p>
                         </a>
