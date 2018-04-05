@@ -82,10 +82,33 @@
             </div>
         </div>
         <h1 style="text-align:center;font-family: 'Saira', sans-serif;padding-left: 100px;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Click on the markers to get details</h1>
+        <div align='center'>
+<form action="" method="post" style="z-index:999 ">
+        {% csrf_token %}
+        <table>
+            {{ f.as_table }}
+            <tr>
+                <td></td>
+                <td><input type="submit"></td>
+            </tr>
+        </table>
+        <!-- <label>Date:</label>
+        <input id="created_on" type="text" required/>
+        <input type="submit"> -->
+    </form>
+    <!-- <h3>
+    {%for i in pd%}
+        {{ i }}
+    {%endfor%}
+    </h3> -->
+</div>
         <div id="map"></div>
         <div id="map"><div id="legend" style="text-align: left;"><h3>Legend</h3></div></div>
     </div>
 </body>
+
+
+
 <!--   Core JS Files   -->
 <script src="{% static 'assets/js/jquery-3.2.1.min.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/js/bootstrap.min.js' %}" type="text/javascript"></script>
@@ -238,20 +261,7 @@
 <script async defer
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhS7p1L3Hu9OxCjF_cbZnQatOywzhBDp0&callback=initMap">
 </script>
-</div>
+ </div>
 
-<div align='center'>
-
-  <form action="" method="post">
-        {% csrf_token %}
-        <table>
-            {{ f.as_table }}
-            <tr>
-                <td></td>
-                <td><input type="submit"></td>
-            </tr>
-        </table>
-    </form>
-</div>
 
 </html>
