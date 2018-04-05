@@ -8,15 +8,16 @@ from .forms import DateForm
 # Create your views here.
 
 def grab(request):
+    #all paramaters
     pollution = request.GET['pol']
     latitude = request.GET['lat']
     longitude = request.GET['lon']
     temperature = request.GET['t']
     humidity = request.GET['h']
 
-    Data.objects.create(pollution=pollution,latitude=latitude,longitude=longitude)
+    Data.objects.create(pollution=pollution,latitude=latitude,longitude=longitude,temperature=temperature,humidity=humidity)
 
-    return redirect("showMap")
+    return redirect('map')
 
 def showMap(request):
     # date = datetime.date.today()
