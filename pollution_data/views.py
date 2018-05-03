@@ -50,5 +50,5 @@ def showCharts(request):
         if delta.seconds >= 1:
             current = p.created_on
             arr.append(json.dumps({'temperature': p.temperature, 'humidity': p.humidity, 'pollution' : p.pollution}))
-    print arr
+    # print arr
     return render(request, 'pms/Dashboard_mist/pages/analytics.html', {'datajson': arr, 'data': x, 'latest': x[0]})
