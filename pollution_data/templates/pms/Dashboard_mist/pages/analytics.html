@@ -2,7 +2,6 @@
 <html lang="en">
 {% load staticfiles %}
 <head>
-		<meta http-equiv="refresh" content="20">
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>Dashboard</title>
@@ -21,47 +20,42 @@
 
 <body>
     <div class="wrapper">
-        <div class="sidebar" data-color="green" data-image="{% static 'assets/img/sidebar-1.jpg' %}">
+        <div class="sidebar" data-color="orange" data-image="{% static 'assets/img/sidebar-1.jpg' %}">
             <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
 
         Tip 2: you can also add an image using data-image tag
     -->
             <div class="logo">
-                <a href="http://ad07.pythonanywhere.com/" class="simple-text">
+                <a href="{% url 'dashboard' %}" class="simple-text">
                     Project Mist
                 </a>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <li >
-                        <a href="http://ad07.pythonanywhere.com/">
+                    <li>
+                        <a href="/">
                             <i class="material-icons">dashboard</i>
                             <p>Dashboard</p>
                         </a>
                     </li>
                     <li>
-                        <a href="http://ad07.pythonanywhere.com/admin">
+                        <a href="{% url 'admin:index' %}">
                             <i class="material-icons">person</i>
                             <p>Admin Login</p>
                         </a>
                     </li>
-                    <li class="active">
-                        <a href="http://ad07.pythonanywhere.com/plants">
-                            <i class="material-icons">content_paste</i>
-                            <p>Plant Analytics</p>
-                        </a>
-                    </li>
+
                     <li>
-                        <a href="http://ad07.pythonanywhere.com/plants/showTank">
-                            <i class="material-icons">library_books</i>
-                            <p>Water Tank Details</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://ad07.pythonanywhere.com/plants/showLocation">
+                        <a href="{% url 'map' %}">
                             <i class="material-icons">location_on</i>
-                            <p>Plant Locations</p>
+                            <p>Pollution Distribution</p>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="{% url 'analytics' %}">
+                            <i class="material-icons">content_paste</i>
+                            <p>Analytics</p>
                         </a>
                     </li>
 
@@ -116,33 +110,17 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="card card-stats">
                         <div class="card-header" data-background-color="red">
-                            <i class="material-icons">local_florist</i>
+                            <i class="material-icons">smoking_rooms</i>
                         </div>
                         <div class="card-content">
-                            <p class="category">Soil Moisture</p>
+                            <p class="category">Pollution</p>
                             <div class="post">
-                            <h3 class="title">{{latest.soilMoisture}}</h3>
+                            <h3 class="title">{{latest.pollution}}</h3>
                           </div>
                         </div>
                         <div class="card-footer">
                             <div class="stats">
                                 <i class="material-icons">update</i>Updated 30 seconds ago
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="card card-stats">
-                        <div class="card-header" data-background-color="blue">
-                            <i class="material-icons">opacity</i>
-                        </div>
-                        <div class="card-content">
-                            <p class="category">Water Level</p>
-                            <h3 class="title">{{levelx}}</h3>
-                        </div>
-                        <div class="card-footer">
-                            <div class="stats">
-                                <i class="material-icons">update</i>Updated 1 minute ago
                             </div>
                         </div>
                     </div>
@@ -169,10 +147,10 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-chart" data-background-color="orange">
-                            <div class="ct-chart" id="humidityChart" style="height:500px"></div>
+                            <div class="ct-chart" id="pollutionChart" style="height:500px"></div>
                         </div>
                         <div class="card-content">
-                            <h4 class="title">Soil Moisture Readings</h4>
+                            <h4 class="title">Pollution Readings</h4>
               <!--              <p class="category">Last Campaign Performance</p>        -->
                         </div>
                         <div class="card-footer">
@@ -185,7 +163,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-chart" data-background-color="red">
-                            <div class="ct-chart" id="waterLevelChart" style="height:500px"></div>
+                            <div class="ct-chart" id="humidityLevelChart" style="height:500px"></div>
                         </div>
                         <div class="card-content">
                             <h4 class="title">Humidity Readings</h4>
@@ -233,7 +211,7 @@
         // Javascript method's body can be found in assets/js/demos.js
 
 
-        let dat = '{{plantsjson}}'.split('&#39;').join('')
+        let dat = '{{datajson}}'.split('&#39;').join('')
         console.log(JSON.parse(dat.replace(/&quot;/g, '"')))//.replace(/&quot;/g, `"`).join(''))
         //
         demo.initDashboardPageCharts(JSON.parse(dat.replace(/&quot;/g, '"')))
