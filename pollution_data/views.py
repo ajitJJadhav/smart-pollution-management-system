@@ -38,3 +38,17 @@ def showMap(request):
         datevalue = datetime.date.today()
         all_data = Data.objects.filter(created_on__date = datevalue)
         return render(request,"pms/Dashboard_mist/pages/maps.html", {'f':form, 'dt':datevalue, 'pldata':all_data} )
+
+def showCharts(request):
+    x = Data.objects.all().order_by('-created_on')
+
+    arr = []
+    current = timezone.now()
+
+    for p in x:
+        delta = current - p.created_on
+        if delta.seconds >= 1:
+            current = p.created_on
+            arr.append(json.dumps({'temperature': p.temperature, 'humidity': p.humidity, 'pollution' : p.pollution}))
+    print arr
+    return render(request, 'pms/Dashboard_mist/pages/analytics.html', {'datajson': arr, 'data': x, 'latest': x[0]})

@@ -17,44 +17,6 @@ demo = {
     },
 
 
-initWaterLevel: function(latest) {
-
-        /* ----------==========     Daily Sales Chart initialization    ==========---------- */
-        var x = latest.splice(0,14);
-        x = x.reverse();
-
-        dataTemperatureChart = {
-            labels: ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th', '13th', '14th', '15th'],
-            series: [
-                x.map(v => v.level).splice(0, 14)
-            ]
-        };
-
-        optionsTemperatureChart = {
-            lineSmooth: Chartist.Interpolation.cardinal({
-                tension: 0
-            }),
-            low: 0,
-            high: 100, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-            chartPadding: {
-                top: 0,
-                right: 0,
-                bottom: 0,
-                left: 0
-            },
-        }
-
-        var temperatureChart = new Chartist.Line('#temperatureChart', dataTemperatureChart, optionsTemperatureChart);
-
-        md.startAnimationForLineChart(temperatureChart);
-
-},
-
-
-
-
-
-
     initDashboardPageCharts: function(latest) {
 
         /* ----------==========     Daily Sales Chart initialization    ==========---------- */
@@ -64,7 +26,7 @@ initWaterLevel: function(latest) {
         dataTemperatureChart = {
             labels: ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th', '13th', '14th', '15th'],
             series: [
-                x.map(v => v.temperature).splice(0, 14)
+                x.map(v => v.temperature)
             ]
         };
 
@@ -90,14 +52,14 @@ initWaterLevel: function(latest) {
 
         /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
 
-        dataWaterLevelChart = {
+        dataHumidityLevelChart = {
             labels: ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th', '13th', '14th', '15th'],
             series: [
-                x.map(v => v.humidity).splice(0, 14)
+                x.map(v => v.humidity)
             ]
         };
 
-        optionsWaterLevelChart = {
+        optionsHumidityLevelChart = {
             lineSmooth: Chartist.Interpolation.cardinal({
                 tension: 0
             }),
@@ -111,27 +73,27 @@ initWaterLevel: function(latest) {
             }
         }
 
-        var waterLevelChart = new Chartist.Line('#waterLevelChart', dataWaterLevelChart, optionsWaterLevelChart);
+        var humidityLevelChart = new Chartist.Line('#humidityLevelChart', dataHumidityLevelChart, optionsHumidityLevelChart);
 
         // start animation for the Completed Tasks Chart - Line Chart
-        md.startAnimationForLineChart(waterLevelChart);
+        md.startAnimationForLineChart(humidityLevelChart);
 
 
         /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
 
-        var dataHumidityChart = {
+        var dataPollutionChart = {
             labels: ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th', '13th', '14th', '15th'],
             series: [
-                x.map(v => v.soilMoisture).splice(0, 14)
+                x.map(v => v.pollution)
 
             ]
         };
-        var optionsHumidityChart = {
+        var optionsPollutionChart = {
             axisX: {
                 showGrid: false
             },
             low: 0,
-            high: 100,
+            high: 300,
             chartPadding: {
                 top: 0,
                 right: 5,
@@ -149,10 +111,10 @@ initWaterLevel: function(latest) {
                 }
             }]
         ];
-        var humidityChart = Chartist.Bar('#humidityChart', dataHumidityChart, optionsHumidityChart, responsiveOptions);
+        var pollutionChart = Chartist.Bar('#pollutionChart', dataPollutionChart, optionsPollutionChart, responsiveOptions);
 
         //start animation for the Emails Subscription Chart
-        md.startAnimationForBarChart(humidityChart);
+        md.startAnimationForBarChart(pollutionChart);
 
     },
 
