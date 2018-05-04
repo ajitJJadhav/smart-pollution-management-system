@@ -5,6 +5,8 @@ from django.utils import timezone
 import json
 import datetime
 from .forms import DateForm
+
+from django.core.mail import send_mail
 # Create your views here.
 
 def grab(request):
@@ -16,6 +18,14 @@ def grab(request):
     humidity = request.GET['h']
 
     Data.objects.create(pollution=pollution,latitude=latitude,longitude=longitude,temperature=temperature,humidity=humidity)
+    # 
+    # if(pollution>350):
+    #     send_mail(
+    # 'High Pollution Levels',
+    # 'Hi,\n\tToday the pollution level in your area is very high. Kindly take necessary precautions for your own safety.\n\nHave a good day.',
+    # 'ajitpanvel@gmail.com',
+    # ['ajitpanvel@gmail.com'],
+    # fail_silently=False,)
 
     return redirect('map')
 
