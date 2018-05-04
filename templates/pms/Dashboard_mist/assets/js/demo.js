@@ -20,13 +20,11 @@ demo = {
     initDashboardPageCharts: function(latest) {
 
         /* ----------==========     Daily Sales Chart initialization    ==========---------- */
-        var x = latest.splice(0,14);
-        x = x.reverse();
 
         dataTemperatureChart = {
-            labels: ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th', '13th', '14th', '15th'],
+            labels: ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th'],
             series: [
-                x.map(v => v.temperature)
+                latest.map(v => v.temperature).splice(0, 7)
             ]
         };
 
@@ -52,14 +50,14 @@ demo = {
 
         /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
 
-        dataHumidityLevelChart = {
-            labels: ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th', '13th', '14th', '15th'],
+        dataWaterLevelChart = {
+            labels: ['12am', '3pm', '6pm', '9pm', '12pm', '3am', '6am', '9am'],
             series: [
-                x.map(v => v.humidity)
+                latest.map(v => v.humidity).splice(0, 7)
             ]
         };
 
-        optionsHumidityLevelChart = {
+        optionsWaterLevelChart = {
             lineSmooth: Chartist.Interpolation.cardinal({
                 tension: 0
             }),
@@ -73,27 +71,27 @@ demo = {
             }
         }
 
-        var humidityLevelChart = new Chartist.Line('#humidityLevelChart', dataHumidityLevelChart, optionsHumidityLevelChart);
+        var waterLevelChart = new Chartist.Line('#waterLevelChart', dataWaterLevelChart, optionsWaterLevelChart);
 
         // start animation for the Completed Tasks Chart - Line Chart
-        md.startAnimationForLineChart(humidityLevelChart);
+        md.startAnimationForLineChart(waterLevelChart);
 
 
         /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
 
-        var dataPollutionChart = {
-            labels: ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th', '13th', '14th', '15th'],
+        var dataHumidityChart = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug'],
             series: [
-                x.map(v => v.pollution)
+                latest.map(v => v.soilMoisture).splice(0, 7)
 
             ]
         };
-        var optionsPollutionChart = {
+        var optionsHumidityChart = {
             axisX: {
                 showGrid: false
             },
             low: 0,
-            high: 300,
+            high: 1000,
             chartPadding: {
                 top: 0,
                 right: 5,
@@ -111,16 +109,15 @@ demo = {
                 }
             }]
         ];
-        var pollutionChart = Chartist.Bar('#pollutionChart', dataPollutionChart, optionsPollutionChart, responsiveOptions);
+        var humidityChart = Chartist.Bar('#humidityChart', dataHumidityChart, optionsHumidityChart, responsiveOptions);
 
         //start animation for the Emails Subscription Chart
-        md.startAnimationForBarChart(pollutionChart);
+        md.startAnimationForBarChart(humidityChart);
 
     },
 
-/*
     initGoogleMaps: function() {
-        var myLatlng = new google.maps.LatLng(13.5494, 79.9994);
+        var myLatlng = new google.maps.LatLng(40.748817, -73.985428);
         var mapOptions = {
             zoom: 13,
             center: myLatlng,
@@ -222,7 +219,6 @@ demo = {
         // To add the marker to the map, call setMap();
         marker.setMap(map);
     },
-*/
 
     showNotification: function(from, align) {
         color = Math.floor((Math.random() * 4) + 1);
